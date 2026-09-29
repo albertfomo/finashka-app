@@ -1,0 +1,108 @@
+/*
+  Оформление мини-приложения.
+  Цвета берутся из темы Telegram (светлая/тёмная) — переменные --tg-theme-*.
+  После «,» указан цвет на случай, если страницу открыли не в Telegram.
+*/
+:root {
+  --bg: var(--tg-theme-secondary-bg-color, #f1f2f6);
+  --card: var(--tg-theme-section-bg-color, var(--tg-theme-bg-color, #ffffff));
+  --text: var(--tg-theme-text-color, #1c1c1e);
+  --hint: var(--tg-theme-hint-color, #8a8a8e);
+  --link: var(--tg-theme-link-color, #2481cc);
+  --accent: var(--tg-theme-button-color, #2481cc);
+  --accent-text: var(--tg-theme-button-text-color, #ffffff);
+  --danger: var(--tg-theme-destructive-text-color, #e5393a);
+  --line: color-mix(in srgb, var(--hint) 22%, transparent);
+  --soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { max-width: 560px; margin: 0 auto; padding: 16px 16px 32px; }
+
+.screen { display: flex; flex-direction: column; gap: 12px; }
+
+h1 { font-size: 24px; margin: 4px 0 0; }
+h2 { font-size: 22px; margin: 4px 0 4px; }
+h3 { font-size: 13px; margin: 12px 4px 0; color: var(--hint); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+p { margin: 0; }
+.hint { color: var(--hint); font-size: 14px; }
+.center { text-align: center; }
+.rich { white-space: pre-line; }   /* переносы строк из texts.py */
+.loading, .fatal { text-align: center; color: var(--hint); padding: 60px 16px; white-space: pre-line; }
+
+.card { background: var(--card); border-radius: var(--radius); padding: 14px 16px; }
+
+/* ---------- Главный экран ---------- */
+.hero { text-align: center; padding: 12px 0 8px; }
+.logo {
+  width: 72px; height: 72px; margin: 0 auto 8px; border-radius: 22px;
+  display: grid; place-items: center; font-size: 40px;
+  background: linear-gradient(135deg, var(--soft), color-mix(in srgb, var(--accent) 28%, transparent));
+}
+.menu { display: flex; flex-direction: column; background: var(--card); border-radius: var(--radius); overflow: hidden; }
+.menu-item {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 12px 16px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.menu-item + .menu-item { border-top: 1px solid var(--line); }
+.menu-item:active { background: var(--soft); }
+.menu-icon {
+  flex: none; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
+  font-size: 22px; background: var(--soft);
+}
+.menu-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.menu-text b { font-weight: 600; }
+.chev { color: var(--hint); font-size: 22px; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: block; width: 100%; padding: 13px 16px; border: 0; border-radius: 12px;
+  background: var(--accent); color: var(--accent-text); font: inherit; font-weight: 600; cursor: pointer; text-align: center;
+}
+.btn:active { opacity: .8; }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.secondary { background: var(--card); color: var(--link); }
+.btn.small { width: auto; display: inline-block; padding: 8px 14px; font-size: 14px; }
+
+/* ---------- Партнёры ---------- */
+.partner { display: flex; align-items: center; gap: 12px; }
+.partner-info { flex: 1; min-width: 0; }
+.partner-name { font-weight: 600; }
+
+/* ---------- Анкета ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field + .field { margin-top: 14px; }
+.field label { font-size: 13px; color: var(--hint); font-weight: 600; }
+input, textarea {
+  width: 100%; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); font: inherit;
+}
+input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+textarea { resize: vertical; min-height: 80px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); font: inherit; font-size: 15px; cursor: pointer;
+}
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.error { color: var(--danger); font-size: 14px; white-space: pre-line; }
+.error:empty { display: none; }
+
+
+/* ---------- Чек-лист ---------- */
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.check input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--accent); }
+.check.on .check-title { text-decoration: line-through; color: var(--hint); }
+.check-title { font-weight: 600; }
+.progress { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.progress div { height: 100%; background: var(--accent); transition: width .2s; }
